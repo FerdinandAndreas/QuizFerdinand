@@ -8,8 +8,9 @@
 // =============================================================================
 const state = {
   currentView: 'home', // 'home', 'select', 'quiz', 'result', 'review'
+  selectedCourse: 'sistem_cerdas', // 'sistem_cerdas' or 'kriptografi'
   selectedMode: 'practice', // 'practice' or 'uts'
-  selectedChapterId: null, // null for all, 1-8 for specific
+  selectedChapterId: null, // null for all, number for specific
   
   quizQuestions: [], // Active questions for current session
   currentIndex: 0,
@@ -115,11 +116,115 @@ function formatTime(seconds) {
 const OPTION_LETTERS = ['A', 'B', 'C', 'D'];
 
 // =============================================================================
+// COURSE MANAGEMENT HELPERS
+// =============================================================================
+function getActiveCourse() {
+  if (typeof COURSES_DATA !== 'undefined' && COURSES_DATA[state.selectedCourse]) {
+    return COURSES_DATA[state.selectedCourse];
+  }
+  return {
+    id: 'sistem_cerdas',
+    name: 'Sistem Cerdas',
+    shortName: 'Sistem Cerdas',
+    questionCount: 80,
+    chapterCount: 8,
+    timerDuration: 30 * 60,
+    chapters: typeof rawChapters !== 'undefined' ? rawChapters : [],
+    questions: typeof rawQuestions !== 'undefined' ? rawQuestions : []
+  };
+}
+
+function selectCourse(courseId, autoNavigateToSelect = false) {
+  if (typeof COURSES_DATA === 'undefined' || !COURSES_DATA[courseId]) return;
+  state.selectedCourse = courseId;
+  state.selectedChapterId = null;
+
+  const course = COURSES_DATA[courseId];
+
+  // Update compatibility variables
+  rawChapters = course.chapters;
+  rawQuestions = course.questions;
+
+  // 1. Update Home View Course Cards
+  const cardSC = document.getElementById('card-course-sistem_cerdas');
+  const cardKripto = document.getElementById('card-course-kriptografi');
+  if (cardSC && cardKripto) {
+    if (courseId === 'sistem_cerdas') {
+      cardSC.classList.add('active');
+      cardKripto.classList.remove('active');
+      const lblSC = cardSC.querySelector('.course-status-label');
+      const lblKr = cardKripto.querySelector('.course-status-label');
+      if (lblSC) lblSC.textContent = 'Terpilih';
+      if (lblKr) lblKr.textContent = 'Pilih Kursus';
+    } else {
+      cardKripto.classList.add('active');
+      cardSC.classList.remove('active');
+      const lblSC = cardSC.querySelector('.course-status-label');
+      const lblKr = cardKripto.querySelector('.course-status-label');
+      if (lblKr) lblKr.textContent = 'Terpilih';
+      if (lblSC) lblSC.textContent = 'Pilih Kursus';
+    }
+  }
+
+  // 2. Update Header Active Course Tag
+  const headerCourseName = document.getElementById('header-course-name');
+  if (headerCourseName) {
+    headerCourseName.textContent = course.name;
+  }
+  const headerCourseImg = document.getElementById('header-course-img');
+  if (headerCourseImg) {
+    headerCourseImg.src = courseId === 'kriptografi' ? 'images/iconKriptografi.jpg' : 'images/iconSistemCerdas.jpg';
+    headerCourseImg.alt = course.name;
+  }
+
+  // 3. Update Home View Stats
+  const statSoal = document.getElementById('home-stat-soal');
+  const statSoalLabel = document.getElementById('home-stat-soal-label');
+  const statBab = document.getElementById('home-stat-bab');
+  const statBabLabel = document.getElementById('home-stat-bab-label');
+
+  if (statSoal) statSoal.textContent = `${course.questionCount} Soal`;
+  if (statSoalLabel) statSoalLabel.textContent = `Soal ${course.name}`;
+  if (statBab) statBab.textContent = `${course.chapterCount} Bab`;
+  if (statBabLabel) statBabLabel.textContent = `Materi Lengkap`;
+
+  // 4. Update Select View Switcher Tabs
+  const tabSC = document.getElementById('tab-course-sistem_cerdas');
+  const tabKripto = document.getElementById('tab-course-kriptografi');
+  if (tabSC && tabKripto) {
+    tabSC.classList.toggle('active', courseId === 'sistem_cerdas');
+    tabKripto.classList.toggle('active', courseId === 'kriptografi');
+  }
+
+  // 5. Update Select View Dynamic Labels
+  const selectCourseTitle = document.getElementById('select-active-course-name');
+  if (selectCourseTitle) selectCourseTitle.textContent = course.name;
+
+  const selectCourseChap = document.getElementById('select-course-chap-label');
+  if (selectCourseChap) selectCourseChap.textContent = course.name;
+
+  const utsSoalCount = document.getElementById('uts-mode-soal-count');
+  if (utsSoalCount) utsSoalCount.textContent = `${course.questionCount} soal (semua bab)`;
+
+  const allChaptersDesc = document.getElementById('all-chapters-desc');
+  if (allChaptersDesc) {
+    allChaptersDesc.textContent = `Kerjakan seluruh ${course.questionCount} soal ${course.name} dalam mode Latihan santai dengan pembahasan langsung.`;
+  }
+
+  // 6. Refresh Chapter List Grid
+  initChaptersGrid();
+
+  if (autoNavigateToSelect) {
+    showView('select');
+  }
+}
+
+// =============================================================================
 // INITIALIZATION & EVENT LISTENERS
 // =============================================================================
 document.addEventListener('DOMContentLoaded', () => {
   initUI();
-  initChaptersGrid();
+  selectCourse('sistem_cerdas', false);
 });
 
 function initUI() {
@@ -148,8 +253,38 @@ function initUI() {
 
   // Home Start Button
   document.getElementById('btn-start-home').addEventListener('click', () => {
-    showView('select');
+    selectCourse(state.selectedCourse || 'sistem_cerdas', true);
   });
+
+  // Course Cards on Home View
+  const cardSC = document.getElementById('card-course-sistem_cerdas');
+  if (cardSC) {
+    cardSC.addEventListener('click', () => {
+      selectCourse('sistem_cerdas', true);
+    });
+  }
+
+  const cardKripto = document.getElementById('card-course-kriptografi');
+  if (cardKripto) {
+    cardKripto.addEventListener('click', () => {
+      selectCourse('kriptografi', true);
+    });
+  }
+
+  // Course Switcher Tabs on Selection View
+  const tabSC = document.getElementById('tab-course-sistem_cerdas');
+  if (tabSC) {
+    tabSC.addEventListener('click', () => {
+      selectCourse('sistem_cerdas', false);
+    });
+  }
+
+  const tabKripto = document.getElementById('tab-course-kriptografi');
+  if (tabKripto) {
+    tabKripto.addEventListener('click', () => {
+      selectCourse('kriptografi', false);
+    });
+  }
 
   // Back from select to home
   document.getElementById('btn-back-to-home').addEventListener('click', () => {
@@ -230,9 +365,11 @@ function initUI() {
 // Render Chapter Selection Cards
 function initChaptersGrid() {
   const container = document.getElementById('chapters-list-grid');
+  if (!container) return;
   container.innerHTML = '';
 
-  rawChapters.forEach(chap => {
+  const course = getActiveCourse();
+  course.chapters.forEach(chap => {
     const card = document.createElement('div');
     card.className = 'chapter-card';
     card.innerHTML = `
@@ -256,6 +393,7 @@ function initChaptersGrid() {
 // QUIZ WORKFLOW ENGINE
 // =============================================================================
 function startQuizSession(mode, chapterId = null, customQuestions = null) {
+  const course = getActiveCourse();
   state.selectedMode = mode;
   state.selectedChapterId = chapterId;
   state.currentIndex = 0;
@@ -269,10 +407,10 @@ function startQuizSession(mode, chapterId = null, customQuestions = null) {
     sourceQuestions = customQuestions;
   } else if (chapterId !== null) {
     // Single chapter practice
-    sourceQuestions = rawQuestions.filter(q => q.chapterId === chapterId);
+    sourceQuestions = course.questions.filter(q => q.chapterId === chapterId);
   } else {
-    // All 40 questions
-    sourceQuestions = [...rawQuestions];
+    // All questions of active course
+    sourceQuestions = [...course.questions];
   }
 
   if (mode === 'uts') {
@@ -282,23 +420,23 @@ function startQuizSession(mode, chapterId = null, customQuestions = null) {
     startTimer();
     document.getElementById('quiz-timer-badge').style.display = 'flex';
     document.getElementById('uts-navigator-palette').style.display = 'block';
-    document.getElementById('quiz-header-title').textContent = 'Simulasi UTS (Semua Bab)';
+    document.getElementById('quiz-header-title').textContent = `Simulasi UTS ${course.name} (${sourceQuestions.length} Soal)`;
   } else {
     // Practice Mode
     stopTimer();
     document.getElementById('quiz-timer-badge').style.display = 'none';
     document.getElementById('uts-navigator-palette').style.display = 'none';
-    
+
     // In Practice mode: randomize option order for variety while preserving correct answer
     state.quizQuestions = sourceQuestions.map(q => prepareQuestion(q, true));
-    
+
     if (chapterId) {
-      const chap = rawChapters.find(c => c.id === chapterId);
-      document.getElementById('quiz-header-title').textContent = `Latihan - Bab ${chap.id} (${chap.title})`;
+      const chap = course.chapters.find(c => c.id === chapterId);
+      document.getElementById('quiz-header-title').textContent = `Latihan ${course.name} - Bab ${chap.id} (${chap.title})`;
     } else if (customQuestions) {
-      document.getElementById('quiz-header-title').textContent = `Latihan Soal Salah (${sourceQuestions.length} Soal)`;
+      document.getElementById('quiz-header-title').textContent = `Latihan Soal Salah - ${course.name} (${sourceQuestions.length} Soal)`;
     } else {
-      document.getElementById('quiz-header-title').textContent = `Latihan - Semua Bab (${sourceQuestions.length} Soal)`;
+      document.getElementById('quiz-header-title').textContent = `Latihan ${course.name} - Semua Bab (${sourceQuestions.length} Soal)`;
     }
   }
 
@@ -617,6 +755,8 @@ function finishQuizSession() {
     wrongQuestionObjects: wrongQuestions
   };
 
+  const course = getActiveCourse();
+
   // Populate Result Screen
   document.getElementById('res-total-questions').textContent = total;
   document.getElementById('res-correct-count').textContent = correctCount;
@@ -624,9 +764,9 @@ function finishQuizSession() {
   document.getElementById('res-final-score').textContent = score;
 
   if (state.selectedMode === 'uts') {
-    document.getElementById('result-main-title').textContent = 'UTS Selesai!';
+    document.getElementById('result-main-title').textContent = `UTS ${course.name} Selesai!`;
   } else {
-    document.getElementById('result-main-title').textContent = 'Latihan Selesai!';
+    document.getElementById('result-main-title').textContent = `Latihan ${course.name} Selesai!`;
   }
 
   // Motivational message & icon
@@ -637,19 +777,19 @@ function finishQuizSession() {
   if (score >= 90) {
     trophyElem.textContent = '🏆';
     emojiElem.textContent = '🌟';
-    msgElem.textContent = 'Sangat bagus! Kamu sudah sangat siap menghadapi UTS Sistem Cerdas.';
+    msgElem.textContent = `Sangat bagus! Kamu sudah sangat siap menghadapi UTS ${course.name}.`;
   } else if (score >= 80) {
     trophyElem.textContent = '🎉';
     emojiElem.textContent = '😃';
-    msgElem.textContent = 'Bagus! Tinggal sedikit lagi untuk lebih mantap.';
+    msgElem.textContent = `Bagus! Tinggal sedikit lagi untuk lebih mantap menguasai ${course.name}.`;
   } else if (score >= 70) {
     trophyElem.textContent = '👍';
     emojiElem.textContent = '📚';
-    msgElem.textContent = 'Lumayan, tetapi masih ada beberapa konsep materi yang perlu dipelajari lagi.';
+    msgElem.textContent = `Lumayan, tetapi masih ada beberapa konsep materi ${course.name} yang perlu dipelajari lagi.`;
   } else {
     trophyElem.textContent = '💡';
     emojiElem.textContent = '💪';
-    msgElem.textContent = 'Jangan menyerah! Coba ulangi materi dan latihan kembali soal-soal yang salah.';
+    msgElem.textContent = `Jangan menyerah! Coba ulangi materi dan latihan kembali soal-soal ${course.name} yang salah.`;
   }
 
   // Retry Wrong Button visibility

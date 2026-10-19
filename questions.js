@@ -3,7 +3,7 @@
  * Dilengkapi dengan metadata bab, pilihan jawaban, kunci jawaban yang akurat, dan pembahasan ringkas & jelas.
  */
 
-const rawChapters = [
+const rawChaptersSistemCerdas = [
   {
     id: 1,
     number: "01",
@@ -62,7 +62,7 @@ const rawChapters = [
   }
 ];
 
-const rawQuestions = [
+const rawQuestionsSistemCerdas = [
   // =========================================================================
   // BAB 1 — PENGANTAR SISTEM CERDAS (10 Soal)
   // =========================================================================
@@ -1215,3 +1215,796 @@ const rawQuestions = [
     explanation: "Epoch adalah satu putaran ketika seluruh data latih telah digunakan dalam proses pembelajaran."
   }
 ];
+
+// =============================================================================
+// DATA MATA KULIAH: KRIPTOGRAFI (50 Soal / 4 Bab)
+// Sumber: soal.md
+// =============================================================================
+
+const rawChaptersKriptografi = [
+  {
+    id: 1,
+    number: "01",
+    title: "Keamanan Informasi & Dasar Kriptografi",
+    description: "Tujuan kriptografi, plaintext/ciphertext, Kerckhoffs, pilar keamanan (CIA & Non-repudiation)",
+    questionCount: 14
+  },
+  {
+    id: 2,
+    number: "02",
+    title: "Kriptografi Klasik",
+    description: "Caesar cipher, substitusi mono/polialfabetik, transposisi, Vigenère cipher, Mesin Enigma",
+    questionCount: 11
+  },
+  {
+    id: 3,
+    number: "03",
+    title: "Serangan terhadap Kriptografi",
+    description: "Kriptanalisis, COA, KPA, CPA, CCA, brute force, analisis frekuensi, metode Kasiski",
+    questionCount: 10
+  },
+  {
+    id: 4,
+    number: "04",
+    title: "Landasan Matematika Kriptografi",
+    description: "Aritmatika modulo, FPB, Algoritma Euclidean, dan Invers Perkalian Modulo",
+    questionCount: 15
+  }
+];
+
+const rawQuestionsKriptografi = [
+  // =========================================================================
+  // BAB 1 — KEAMANAN INFORMASI DAN DASAR KRIPTOGRAFI (14 Soal)
+  // =========================================================================
+  {
+    id: 1,
+    chapterId: 1,
+    chapterName: "Keamanan Informasi & Dasar Kriptografi",
+    question: "Apa tujuan utama kriptografi?",
+    options: [
+      "Mempercepat koneksi internet",
+      "Menjaga keamanan informasi",
+      "Memperbesar ukuran file",
+      "Menghapus data digital"
+    ],
+    answer: 1, // B
+    explanation: "Tujuan utama kriptografi adalah menjaga kerahasiaan dan keamanan informasi agar tidak dapat diakses atau dimanipulasi oleh pihak yang tidak berwenang."
+  },
+  {
+    id: 2,
+    chapterId: 1,
+    chapterName: "Keamanan Informasi & Dasar Kriptografi",
+    question: "Pesan asli sebelum dienkripsi disebut ...",
+    options: [
+      "Ciphertext",
+      "Key",
+      "Plaintext",
+      "Cryptogram"
+    ],
+    answer: 2, // C
+    explanation: "Plaintext (teks terang) adalah pesan asli yang dapat dibaca dan dimengerti secara langsung sebelum melalui proses penyandian (enkripsi)."
+  },
+  {
+    id: 3,
+    chapterId: 1,
+    chapterName: "Keamanan Informasi & Dasar Kriptografi",
+    question: "Pesan yang telah dienkripsi disebut ...",
+    options: [
+      "Plaintext",
+      "Ciphertext",
+      "Decryption",
+      "Keyspace"
+    ],
+    answer: 1, // B
+    explanation: "Ciphertext (teks tersandi) adalah hasil transformasi pesan menggunakan algoritma kriptografi sehingga tidak dapat dipahami tanpa proses dekripsi."
+  },
+  {
+    id: 4,
+    chapterId: 1,
+    chapterName: "Keamanan Informasi & Dasar Kriptografi",
+    question: "Proses mengubah plaintext menjadi ciphertext disebut ...",
+    options: [
+      "Dekripsi",
+      "Enkripsi",
+      "Kriptanalisis",
+      "Autentikasi"
+    ],
+    answer: 1, // B
+    explanation: "Enkripsi adalah proses matematis menyandikan plaintext menjadi ciphertext dengan menggunakan kunci tertentu agar aman dari penyadapan."
+  },
+  {
+    id: 5,
+    chapterId: 1,
+    chapterName: "Keamanan Informasi & Dasar Kriptografi",
+    question: "Proses mengembalikan ciphertext menjadi plaintext disebut ...",
+    options: [
+      "Enkripsi",
+      "Dekripsi",
+      "Substitusi",
+      "Transposisi"
+    ],
+    answer: 1, // B
+    explanation: "Dekripsi adalah proses memulihkan ciphertext kembali menjadi plaintext semula menggunakan kunci dekripsi yang valid."
+  },
+  {
+    id: 6,
+    chapterId: 1,
+    chapterName: "Keamanan Informasi & Dasar Kriptografi",
+    question: "Parameter rahasia yang digunakan untuk proses enkripsi atau dekripsi disebut ...",
+    options: [
+      "Plaintext",
+      "Ciphertext",
+      "Kunci",
+      "Pesan"
+    ],
+    answer: 2, // C
+    explanation: "Kunci (key) adalah parameter rahasia yang mengontrol cara kerja algoritma kriptografi dalam proses enkripsi maupun dekripsi."
+  },
+  {
+    id: 7,
+    chapterId: 1,
+    chapterName: "Keamanan Informasi & Dasar Kriptografi",
+    question: "Menurut prinsip Kerckhoffs, keamanan sistem kriptografi seharusnya bergantung pada ...",
+    options: [
+      "Kerahasiaan algoritma",
+      "Kerahasiaan kunci",
+      "Kerahasiaan nama pengirim",
+      "Panjang plaintext saja"
+    ],
+    answer: 1, // B
+    explanation: "Prinsip Kerckhoffs menyatakan bahwa keamanan sistem kriptografi harus sepenuhnya bertumpu pada kerahasiaan kunci, bukan pada kerahasiaan algoritmanya (algoritma boleh diketahui publik)."
+  },
+  {
+    id: 8,
+    chapterId: 1,
+    chapterName: "Keamanan Informasi & Dasar Kriptografi",
+    question: "Memastikan informasi hanya dapat dibaca pihak berwenang disebut ...",
+    options: [
+      "Integrity",
+      "Authentication",
+      "Confidentiality",
+      "Non-repudiation"
+    ],
+    answer: 2, // C
+    explanation: "Confidentiality (kerahasiaan) adalah aspek keamanan yang menjamin data hanya dapat diakses dan dibaca oleh entitas yang memiliki hak akses resmi."
+  },
+  {
+    id: 9,
+    chapterId: 1,
+    chapterName: "Keamanan Informasi & Dasar Kriptografi",
+    question: "Memastikan pesan tidak diubah tanpa izin disebut ...",
+    options: [
+      "Integrity",
+      "Confidentiality",
+      "Compression",
+      "Transposition"
+    ],
+    answer: 0, // A
+    explanation: "Integrity (keutuhan data) menjamin keaslian data dan memastikan pesan tidak mengalami modifikasi, penyisipan, atau perusakan tanpa izin."
+  },
+  {
+    id: 10,
+    chapterId: 1,
+    chapterName: "Keamanan Informasi & Dasar Kriptografi",
+    question: "Memastikan identitas pihak yang berkomunikasi disebut ...",
+    options: [
+      "Enkripsi",
+      "Authentication",
+      "Transposisi",
+      "Kriptanalisis"
+    ],
+    answer: 1, // B
+    explanation: "Authentication (autentikasi) adalah proses pembuktian dan verifikasi kebenaran identitas pengguna, sistem, atau integritas sumber pesan."
+  },
+  {
+    id: 11,
+    chapterId: 1,
+    chapterName: "Keamanan Informasi & Dasar Kriptografi",
+    question: "Prinsip untuk mencegah pengirim menyangkal telah mengirim pesan disebut ...",
+    options: [
+      "Confidentiality",
+      "Integrity",
+      "Non-repudiation",
+      "Substitution"
+    ],
+    answer: 2, // C
+    explanation: "Non-repudiation (kenir-sangkalan) memberikan bukti tak terbantahkan bahwa pengirim benar-benar mengirim pesan tersebut sehingga ia tidak dapat menyangkalnya."
+  },
+  {
+    id: 12,
+    chapterId: 1,
+    chapterName: "Keamanan Informasi & Dasar Kriptografi",
+    question: "Ilmu yang mempelajari kriptografi dan kriptanalisis disebut ...",
+    options: [
+      "Kriptologi",
+      "Kriptogram",
+      "Kriptogrammatika",
+      "Kompresi"
+    ],
+    answer: 0, // A
+    explanation: "Kriptologi (cryptology) adalah cabang ilmu induk yang mencakup kriptografi (pembuatan sistem sandi) dan kriptanalisis (pemecahan sistem sandi)."
+  },
+  {
+    id: 13,
+    chapterId: 1,
+    chapterName: "Keamanan Informasi & Dasar Kriptografi",
+    question: "Enkripsi data yang tersimpan di hard disk atau database disebut ...",
+    options: [
+      "Encryption in transit",
+      "Encryption at rest",
+      "Brute force",
+      "Frequency analysis"
+    ],
+    answer: 1, // B
+    explanation: "Encryption at rest mengamankan data statis yang sedang tersimpan di media penyimpanan (seperti hard drive, flash disk, database, atau backup storage)."
+  },
+  {
+    id: 14,
+    chapterId: 1,
+    chapterName: "Keamanan Informasi & Dasar Kriptografi",
+    question: "Enkripsi data ketika sedang dikirim melalui jaringan disebut ...",
+    options: [
+      "Encryption at rest",
+      "Encryption in transit",
+      "Transposisi",
+      "Invers modulo"
+    ],
+    answer: 1, // B
+    explanation: "Encryption in transit (data in flight) melindungi data saat mengalir melintasi saluran komunikasi atau jaringan publik (misalnya via TLS/HTTPS atau VPN)."
+  },
+
+  // =========================================================================
+  // BAB 2 — KRIPTOGRAFI KLASIK (11 Soal)
+  // =========================================================================
+  {
+    id: 15,
+    chapterId: 2,
+    chapterName: "Kriptografi Klasik",
+    question: "Caesar cipher termasuk teknik kriptografi ...",
+    options: [
+      "Substitusi",
+      "Transposisi",
+      "Hashing",
+      "Kompresi"
+    ],
+    answer: 0, // A
+    explanation: "Caesar cipher merupakan cipher substitusi monoalfabetik klasik di mana setiap huruf digantikan oleh huruf lain dengan selisih pergeseran posisi tetap."
+  },
+  {
+    id: 16,
+    chapterId: 2,
+    chapterName: "Kriptografi Klasik",
+    question: "Pada Caesar cipher dengan kunci k = 3, huruf A dienkripsi menjadi ...",
+    options: [
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    answer: 2, // C
+    explanation: "Huruf A bernilai posisi 0. Dengan rumus E(p) = (p + 3) mod 26: 0 + 3 = 3, yang berkorespondensi dengan huruf D."
+  },
+  {
+    id: 17,
+    chapterId: 2,
+    chapterName: "Kriptografi Klasik",
+    question: "Rumus enkripsi Caesar cipher yang umum digunakan adalah ...",
+    options: [
+      "E(p) = (p - k) mod 26",
+      "E(p) = (p + k) mod 26",
+      "E(p) = p + k + 26",
+      "E(p) = p × k"
+    ],
+    answer: 1, // B
+    explanation: "Enkripsi Caesar cipher menggeser indeks karakter p sejauh k langkah maju dalam alfabet modulo 26: E(p) = (p + k) mod 26."
+  },
+  {
+    id: 18,
+    chapterId: 2,
+    chapterName: "Kriptografi Klasik",
+    question: "Rumus dekripsi Caesar cipher yang umum digunakan adalah ...",
+    options: [
+      "D(c) = (c - k) mod 26",
+      "D(c) = (c + k) mod 26",
+      "D(c) = c × k",
+      "D(c) = c + k + 26"
+    ],
+    answer: 0, // A
+    explanation: "Dekripsi Caesar cipher membalik proses enkripsi dengan menggeser indeks c mundur sejauh k langkah: D(c) = (c - k) mod 26."
+  },
+  {
+    id: 19,
+    chapterId: 2,
+    chapterName: "Kriptografi Klasik",
+    question: "Jika Caesar cipher menggunakan kunci 3, huruf D didekripsi menjadi ...",
+    options: [
+      "A",
+      "B",
+      "C",
+      "G"
+    ],
+    answer: 0, // A
+    explanation: "Huruf D memiliki indeks 3. Rumus dekripsi: D(c) = (3 - 3) mod 26 = 0, yaitu huruf A."
+  },
+  {
+    id: 20,
+    chapterId: 2,
+    chapterName: "Kriptografi Klasik",
+    question: "Dalam cipher substitusi, proses utama yang dilakukan adalah ...",
+    options: [
+      "Mengubah posisi huruf tanpa mengganti simbolnya",
+      "Mengganti simbol dengan simbol lain",
+      "Menghapus seluruh huruf",
+      "Membalik urutan kata saja"
+    ],
+    answer: 1, // B
+    explanation: "Cipher substitusi bekerja dengan mengganti setiap simbol atau huruf dalam plaintext dengan simbol, huruf, atau angka lain."
+  },
+  {
+    id: 21,
+    chapterId: 2,
+    chapterName: "Kriptografi Klasik",
+    question: "Dalam cipher transposisi, proses utama yang dilakukan adalah ...",
+    options: [
+      "Mengganti semua huruf menjadi angka",
+      "Mengubah posisi atau urutan simbol",
+      "Menghapus kunci",
+      "Mengubah semua huruf menjadi A"
+    ],
+    answer: 1, // B
+    explanation: "Cipher transposisi mempertahankan karakter asli plaintext tetapi mengacak atau mengubah posisi susunannya (permutasi)."
+  },
+  {
+    id: 22,
+    chapterId: 2,
+    chapterName: "Kriptografi Klasik",
+    question: "Vigenère cipher merupakan contoh ...",
+    options: [
+      "Substitusi monoalfabetik",
+      "Substitusi polialfabetik",
+      "Hashing",
+      "Enkripsi tanpa kunci"
+    ],
+    answer: 1, // B
+    explanation: "Vigenère cipher adalah substitusi polialfabetik karena satu huruf plaintext yang sama dapat dienkripsi menjadi beberapa huruf ciphertext yang berbeda sesuai huruf kunci."
+  },
+  {
+    id: 23,
+    chapterId: 2,
+    chapterName: "Kriptografi Klasik",
+    question: "Apa yang digunakan dalam Vigenère cipher untuk menentukan pergeseran huruf?",
+    options: [
+      "Panjang plaintext saja",
+      "Huruf-huruf kunci",
+      "Alamat IP",
+      "Ukuran file"
+    ],
+    answer: 1, // B
+    explanation: "Pergeseran tiap huruf dalam Vigenère cipher ditentukan oleh nilai alfabetis dari huruf kunci yang berulang sepanjang plaintext."
+  },
+  {
+    id: 24,
+    chapterId: 2,
+    chapterName: "Kriptografi Klasik",
+    question: "Super encryption merupakan metode yang ...",
+    options: [
+      "Menggunakan satu teknik enkripsi saja",
+      "Menggabungkan beberapa teknik penyandian secara berurutan",
+      "Tidak menggunakan kunci",
+      "Hanya menghapus spasi"
+    ],
+    answer: 1, // B
+    explanation: "Super encryption adalah teknik penggabungan dua atau lebih metode enkripsi (misalnya cipher substitusi diikuti oleh cipher transposisi) untuk menghasilkan ciphertext yang lebih kuat."
+  },
+  {
+    id: 25,
+    chapterId: 2,
+    chapterName: "Kriptografi Klasik",
+    question: "Mesin Enigma menggunakan komponen utama berupa ...",
+    options: [
+      "Rotor",
+      "Hard disk",
+      "Database",
+      "Firewall"
+    ],
+    answer: 0, // A
+    explanation: "Mesin Enigma mengandalkan rotor mekanik yang berputar pada setiap penekanan tombol untuk menghasilkan rangkaian substitusi polialfabetik yang sangat kompleks."
+  },
+
+  // =========================================================================
+  // BAB 3 — SERANGAN TERHADAP KRIPTOGRAFI (10 Soal)
+  // =========================================================================
+  {
+    id: 26,
+    chapterId: 3,
+    chapterName: "Serangan terhadap Kriptografi",
+    question: "Ilmu untuk memecahkan ciphertext tanpa mengetahui kunci disebut ...",
+    options: [
+      "Kriptografi",
+      "Kriptanalisis",
+      "Enkripsi",
+      "Dekripsi"
+    ],
+    answer: 1, // B
+    explanation: "Kriptanalisis adalah teknik menganalisis dan memecahkan teks tersandi tanpa memiliki kunci enkripsi/dekripsi yang sah."
+  },
+  {
+    id: 27,
+    chapterId: 3,
+    chapterName: "Serangan terhadap Kriptografi",
+    question: "Serangan yang hanya menggunakan ciphertext sebagai informasi awal disebut ...",
+    options: [
+      "Known-plaintext attack",
+      "Chosen-plaintext attack",
+      "Ciphertext-only attack",
+      "Chosen-ciphertext attack"
+    ],
+    answer: 2, // C
+    explanation: "Pada Ciphertext-only attack (COA), penyerang hanya memiliki satu atau lebih ciphertext tanpa mengetahui plaintext pendampingnya."
+  },
+  {
+    id: 28,
+    chapterId: 3,
+    chapterName: "Serangan terhadap Kriptografi",
+    question: "Serangan yang memanfaatkan pasangan plaintext dan ciphertext yang bersesuaian disebut ...",
+    options: [
+      "Known-plaintext attack",
+      "Ciphertext-only attack",
+      "Brute force",
+      "Transposisi"
+    ],
+    answer: 0, // A
+    explanation: "Known-plaintext attack (KPA) terjadi ketika penyerang memiliki sebagian plaintext beserta ciphertext pasangannya, dan mencoba mengungkap kunci atau sisa pesan."
+  },
+  {
+    id: 29,
+    chapterId: 3,
+    chapterName: "Serangan terhadap Kriptografi",
+    question: "Pada chosen-plaintext attack, penyerang dapat ...",
+    options: [
+      "Memilih plaintext untuk dienkripsi dan mempelajari hasilnya",
+      "Menghapus seluruh kunci secara otomatis",
+      "Mengubah algoritma secara langsung",
+      "Membaca semua pesan tanpa proses apa pun"
+    ],
+    answer: 0, // A
+    explanation: "Chosen-plaintext attack (CPA) memungkinkan penyerang memilih plaintext sembarang untuk dienkripsi oleh sistem target dan menganalisis ciphertext yang keluar."
+  },
+  {
+    id: 30,
+    chapterId: 3,
+    chapterName: "Serangan terhadap Kriptografi",
+    question: "Pada chosen-ciphertext attack, penyerang dapat ...",
+    options: [
+      "Memilih ciphertext untuk didekripsi dan mempelajari hasilnya",
+      "Memilih nama algoritma saja",
+      "Menghapus plaintext",
+      "Mengubah semua huruf menjadi angka"
+    ],
+    answer: 0, // A
+    explanation: "Chosen-ciphertext attack (CCA) memungkinkan penyerang memilih ciphertext tertentu untuk didekripsi dan mengamati plaintext yang dihasilkan oleh sistem target."
+  },
+  {
+    id: 31,
+    chapterId: 3,
+    chapterName: "Serangan terhadap Kriptografi",
+    question: "Serangan dengan mencoba seluruh kemungkinan kunci disebut ...",
+    options: [
+      "Kasiski",
+      "Brute force",
+      "Transposisi",
+      "Authentication"
+    ],
+    answer: 1, // B
+    explanation: "Brute force attack (exhaustive key search) adalah metode mencoba seluruh ruang kunci (keyspace) satu per satu sampai kunci yang benar ditemukan."
+  },
+  {
+    id: 32,
+    chapterId: 3,
+    chapterName: "Serangan terhadap Kriptografi",
+    question: "Analisis frekuensi huruf memanfaatkan ...",
+    options: [
+      "Frekuensi kemunculan huruf dalam bahasa",
+      "Ukuran layar komputer",
+      "Jumlah folder",
+      "Kecepatan keyboard"
+    ],
+    answer: 0, // A
+    explanation: "Analisis frekuensi memanfaatkan karakteristik statistik bahasa alami, di mana huruf-huruf tertentu muncul dengan frekuensi yang dapat diprediksi."
+  },
+  {
+    id: 33,
+    chapterId: 3,
+    chapterName: "Serangan terhadap Kriptografi",
+    question: "Metode Kasiski terutama digunakan untuk menganalisis ...",
+    options: [
+      "Vigenère cipher",
+      "Enkripsi file",
+      "Firewall",
+      "Caesar cipher saja"
+    ],
+    answer: 0, // A
+    explanation: "Metode Kasiski adalah teknik kriptanalisis yang digunakan untuk memperkirakan panjang kunci pada cipher polialfabetik seperti Vigenère cipher."
+  },
+  {
+    id: 34,
+    chapterId: 3,
+    chapterName: "Serangan terhadap Kriptografi",
+    question: "Serangan pasif umumnya dilakukan dengan cara ...",
+    options: [
+      "Memantau atau menyadap komunikasi",
+      "Mengubah isi pesan secara langsung",
+      "Menghapus database",
+      "Mengganti perangkat keras"
+    ],
+    answer: 0, // A
+    explanation: "Serangan pasif berfokus pada penyadapan (eavesdropping) atau pemantauan lalu lintas data tanpa mengubah isi pesan atau merusak operasional sistem."
+  },
+  {
+    id: 35,
+    chapterId: 3,
+    chapterName: "Serangan terhadap Kriptografi",
+    question: "Serangan aktif dapat berupa ...",
+    options: [
+      "Hanya membaca pesan",
+      "Mengubah atau menyisipkan pesan",
+      "Hanya menghitung frekuensi huruf",
+      "Hanya mengamati ukuran file"
+    ],
+    answer: 1, // B
+    explanation: "Serangan aktif melakukan tindakan nyata seperti mengubah isi pesan, menyisipkan data palsu, atau mengganggu ketersediaan komunikasi sistem."
+  },
+
+  // =========================================================================
+  // BAB 4 — LANDASAN MATEMATIKA KRIPTOGRAFI (15 Soal)
+  // =========================================================================
+  {
+    id: 36,
+    chapterId: 4,
+    chapterName: "Landasan Matematika Kriptografi",
+    question: "Hasil dari 17 mod 5 adalah ...",
+    options: [
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    answer: 1, // B
+    explanation: "17 dibagi 5 menghasilkan 3 dengan sisa 2, karena 17 = (3 × 5) + 2. Jadi 17 mod 5 = 2."
+  },
+  {
+    id: 37,
+    chapterId: 4,
+    chapterName: "Landasan Matematika Kriptografi",
+    question: "Hasil dari 29 mod 6 adalah ...",
+    options: [
+      "3",
+      "4",
+      "5",
+      "6"
+    ],
+    answer: 2, // C
+    explanation: "29 dibagi 6 menghasilkan 4 dengan sisa 5, karena 29 = (4 × 6) + 5. Jadi 29 mod 6 = 5."
+  },
+  {
+    id: 38,
+    chapterId: 4,
+    chapterName: "Landasan Matematika Kriptografi",
+    question: "Hasil dari 25 mod 7 adalah ...",
+    options: [
+      "2",
+      "3",
+      "4",
+      "5"
+    ],
+    answer: 2, // C
+    explanation: "25 dibagi 7 menghasilkan 3 dengan sisa 4, karena 25 = (3 × 7) + 4. Jadi 25 mod 7 = 4."
+  },
+  {
+    id: 39,
+    chapterId: 4,
+    chapterName: "Landasan Matematika Kriptografi",
+    question: "FPB dari 18 dan 24 adalah ...",
+    options: [
+      "3",
+      "6",
+      "8",
+      "12"
+    ],
+    answer: 1, // B
+    explanation: "Faktor 18 = {1, 2, 3, 6, 9, 18} dan 24 = {1, 2, 3, 4, 6, 8, 12, 24}. Faktor persekutuan terbesar (FPB) keduanya adalah 6."
+  },
+  {
+    id: 40,
+    chapterId: 4,
+    chapterName: "Landasan Matematika Kriptografi",
+    question: "FPB dari 20 dan 30 adalah ...",
+    options: [
+      "2",
+      "5",
+      "10",
+      "15"
+    ],
+    answer: 2, // C
+    explanation: "Faktor 20 = {1, 2, 4, 5, 10, 20} dan 30 = {1, 2, 3, 5, 6, 10, 15, 30}. Faktor persekutuan terbesarnya adalah 10."
+  },
+  {
+    id: 41,
+    chapterId: 4,
+    chapterName: "Landasan Matematika Kriptografi",
+    question: "FPB dari 14 dan 25 adalah ...",
+    options: [
+      "1",
+      "2",
+      "5",
+      "7"
+    ],
+    answer: 0, // A
+    explanation: "Faktor 14 = {1, 2, 7, 14} dan faktor 25 = {1, 5, 25}. Satu-satunya faktor persekutuan adalah 1, sehingga 14 dan 25 relatif prima (FPB = 1)."
+  },
+  {
+    id: 42,
+    chapterId: 4,
+    chapterName: "Landasan Matematika Kriptografi",
+    question: "Algoritma Euclidean digunakan untuk mencari ...",
+    options: [
+      "Ciphertext",
+      "FPB dua bilangan",
+      "Panjang plaintext",
+      "Nama algoritma"
+    ],
+    answer: 1, // B
+    explanation: "Algoritma Euclidean adalah metode matematika klasik yang efisien untuk menghitung Faktor Persekutuan Terbesar (FPB) dari dua bilangan bulat."
+  },
+  {
+    id: 43,
+    chapterId: 4,
+    chapterName: "Landasan Matematika Kriptografi",
+    question: "Dalam algoritma Euclidean, proses pembagian dilakukan berulang kali sampai ...",
+    options: [
+      "Hasil bagi selalu 1",
+      "Sisa pembagian menjadi 0",
+      "Kedua bilangan menjadi genap",
+      "Bilangan pertama menjadi negatif"
+    ],
+    answer: 1, // B
+    explanation: "Algoritma Euclidean membagi bilangan secara berurutan hingga sisa pembagian sama dengan 0. Sisa bukan nol terakhir sebelum nol adalah nilai FPB-nya."
+  },
+  {
+    id: 44,
+    chapterId: 4,
+    chapterName: "Landasan Matematika Kriptografi",
+    question: "Invers modulo dari a terhadap modulus n ada jika ...",
+    options: [
+      "a = n",
+      "FPB(a, n) = 1",
+      "a selalu genap",
+      "a habis dibagi n"
+    ],
+    answer: 1, // B
+    explanation: "Invers perkalian modulo a (mod n) ada jika dan hanya jika a dan n saling relatif prima, yaitu FPB(a, n) = 1."
+  },
+  {
+    id: 45,
+    chapterId: 4,
+    chapterName: "Landasan Matematika Kriptografi",
+    question: "Invers dari 3 modulo 7 adalah ...",
+    options: [
+      "1",
+      "2",
+      "3",
+      "5"
+    ],
+    answer: 3, // D
+    explanation: "Mencari x sehingga (3 × x) ≡ 1 (mod 7). Menguji x = 5: 3 × 5 = 15 = (2 × 7) + 1 ≡ 1 (mod 7). Jadi invers dari 3 mod 7 adalah 5."
+  },
+  {
+    id: 46,
+    chapterId: 4,
+    chapterName: "Landasan Matematika Kriptografi",
+    question: "Invers dari 2 modulo 5 adalah ...",
+    options: [
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    answer: 2, // C
+    explanation: "Mencari x sehingga (2 × x) ≡ 1 (mod 5). Menguji x = 3: 2 × 3 = 6 = (1 × 5) + 1 ≡ 1 (mod 5). Jadi invers dari 2 mod 5 adalah 3."
+  },
+  {
+    id: 47,
+    chapterId: 4,
+    chapterName: "Landasan Matematika Kriptografi",
+    question: "Invers dari 4 modulo 9 adalah ...",
+    options: [
+      "2",
+      "4",
+      "5",
+      "7"
+    ],
+    answer: 3, // D
+    explanation: "Mencari x sehingga (4 × x) ≡ 1 (mod 9). Menguji x = 7: 4 × 7 = 28 = (3 × 9) + 1 ≡ 1 (mod 9). Jadi invers dari 4 mod 9 adalah 7."
+  },
+  {
+    id: 48,
+    chapterId: 4,
+    chapterName: "Landasan Matematika Kriptografi",
+    question: "FPB dari 26 dan 10 adalah ...",
+    options: [
+      "1",
+      "2",
+      "5",
+      "10"
+    ],
+    answer: 1, // B
+    explanation: "Langkah Euclidean: 26 = 2 × 10 + 6; 10 = 1 × 6 + 4; 6 = 1 × 4 + 2; 4 = 2 × 2 + 0. Sisa pembagian bukan-nol terakhir adalah 2, jadi FPB(26, 10) = 2."
+  },
+  {
+    id: 49,
+    chapterId: 4,
+    chapterName: "Landasan Matematika Kriptografi",
+    question: "Jika a = 7 dan n = 10, apakah invers modulo a terhadap n ada?",
+    options: [
+      "Tidak, karena 7 lebih kecil dari 10",
+      "Tidak, karena keduanya ganjil",
+      "Ada, karena FPB(7, 10) = 1",
+      "Ada hanya jika 7 habis dibagi 10"
+    ],
+    answer: 2, // C
+    explanation: "Invers modulo a terhadap n ada jika FPB(a, n) = 1. Karena FPB(7, 10) = 1 (7 dan 10 relatif prima), maka invers 7 mod 10 pasti ada (yaitu 3, karena 7 × 3 = 21 ≡ 1 mod 10)."
+  },
+  {
+    id: 50,
+    chapterId: 4,
+    chapterName: "Landasan Matematika Kriptografi",
+    question: "Hasil dari 43 mod 8 adalah ...",
+    options: [
+      "2",
+      "3",
+      "4",
+      "5"
+    ],
+    answer: 1, // B
+    explanation: "43 dibagi 8 menghasilkan 5 dengan sisa 3, karena 43 = (5 × 8) + 3. Jadi 43 mod 8 = 3."
+  }
+];
+
+// =============================================================================
+// REGISTRY MATA KULIAH
+// =============================================================================
+const COURSES_DATA = {
+  sistem_cerdas: {
+    id: "sistem_cerdas",
+    name: "Sistem Cerdas",
+    shortName: "Sistem Cerdas",
+    tagline: "UTS Sistem Cerdas",
+    iconImage: "images/iconSistemCerdas.jpg",
+    description: "AI, Metode Pencarian, Representasi Pengetahuan, Sistem Pakar, Logika Fuzzy, Algoritma Genetika, Machine Learning & Deep Learning.",
+    badge: "80 Soal • 8 Bab",
+    questionCount: 80,
+    chapterCount: 8,
+    timerDuration: 30 * 60, // 30 Menit
+    chapters: rawChaptersSistemCerdas,
+    questions: rawQuestionsSistemCerdas
+  },
+  kriptografi: {
+    id: "kriptografi",
+    name: "Kriptografi",
+    shortName: "Kriptografi",
+    tagline: "UTS Kriptografi",
+    iconImage: "images/iconKriptografi.jpg",
+    description: "Keamanan Informasi & Dasar Kriptografi, Cipher Klasik (Caesar, Vigenère, Enigma), Kriptanalisis & Landasan Matematika Modulo.",
+    badge: "50 Soal • 4 Bab",
+    questionCount: 50,
+    chapterCount: 4,
+    timerDuration: 30 * 60, // 30 Menit
+    chapters: rawChaptersKriptografi,
+    questions: rawQuestionsKriptografi
+  }
+};
+
+// Variabel default untuk kompatibilitas ke belakang
+let rawChapters = COURSES_DATA.sistem_cerdas.chapters;
+let rawQuestions = COURSES_DATA.sistem_cerdas.questions;
+
